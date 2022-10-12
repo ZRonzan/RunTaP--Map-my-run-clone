@@ -1,0 +1,32 @@
+.create-route-global-container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+.create-route-sidebar {
+    background-color: aqua;
+    width: 20%;
+    height: 100%;
+}
+
+.create-route-main-body-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: beige;
+    width: 80%;
+    height: 100%;
+}
+
+.create-route-map-window {
+    width: 90%;
+    height: 90%;
+    background-color: aliceblue;
+
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+  }
