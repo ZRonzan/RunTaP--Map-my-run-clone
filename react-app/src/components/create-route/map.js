@@ -15,11 +15,12 @@ function MapComponent({ apiKey }) {
     useEffect(() => {
         if (ref.current && !map) {
             setMap(new window.google.maps.Map(ref.current, {
-                center: { lat: -31.94141102876067, lng: 115.79513691203103},
+                center: { lat: -34.397, lng: 150.644 },
                 zoom: 18
             }));
         }
     }, [ref, map]);
+
 
     return (
         <div ref={ref} id="map"></div>
