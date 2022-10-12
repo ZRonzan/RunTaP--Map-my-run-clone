@@ -1,17 +1,42 @@
 // constants
 const SET_USER = 'session/SET_USER';
+const SET_MAPS_LOADED = 'session/SET_MAPS_LOADED';
 const REMOVE_USER = 'session/REMOVE_USER';
+
 
 const setUser = (user) => ({
   type: SET_USER,
   payload: user
 });
 
+const setMapsLoaded = (loaded) => ({
+  type: SET_MAPS_LOADED,
+  payload: loaded
+});
+
 const removeUser = () => ({
   type: REMOVE_USER,
 })
 
-const initialState = { user: null };
+const initialState = { user: null, mapsLoaded: false };
+
+export const getGMapsAPIKey = () => async (dispatch) => {
+  const response = await fetch('/api/auth/maps', {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(setMapsLoaded(true))
+    return data;
+  } else {
+    return {
+      "ERROR": "Maps could not be loaded"
+    }
+  }
+}
 
 export const authenticate = () => async (dispatch) => {
   const response = await fetch('/api/auth/', {
@@ -24,7 +49,7 @@ export const authenticate = () => async (dispatch) => {
     if (data.errors) {
       return;
     }
-  
+
     dispatch(setUser(data));
   }
 }
@@ -40,8 +65,8 @@ export const login = (email, password) => async (dispatch) => {
       password
     })
   });
-  
-  
+
+
   if (response.ok) {
     const data = await response.json();
     dispatch(setUser(data))
@@ -69,7 +94,6 @@ export const logout = () => async (dispatch) => {
   }
 };
 
-
 export const signUp = (username, email, password) => async (dispatch) => {
   const response = await fetch('/api/auth/signup', {
     method: 'POST',
@@ -82,7 +106,7 @@ export const signUp = (username, email, password) => async (dispatch) => {
       password,
     }),
   });
-  
+
   if (response.ok) {
     const data = await response.json();
     dispatch(setUser(data))
@@ -98,11 +122,17 @@ export const signUp = (username, email, password) => async (dispatch) => {
 }
 
 export default function reducer(state = initialState, action) {
+  let newState = {user: state.user, mapsLoaded: state.mapsLoaded}
   switch (action.type) {
+    case SET_MAPS_LOADED:
+      newState.mapsLoaded = action.payload
+      return newState
     case SET_USER:
-      return { user: action.payload }
+      newState.user = action.payload
+      return newState
     case REMOVE_USER:
-      return { user: null }
+      newState.user = null
+      return newState
     default:
       return state;
   }
