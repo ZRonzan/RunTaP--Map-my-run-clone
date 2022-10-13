@@ -29,9 +29,9 @@ const CreateRoutePage = () => {
             </div>
             <div className='create-route-main-body-container'>
                 <div className='create-route-map-window'>
-                    <Wrapper apiKey={mapsKey}>
+                    {/* <Wrapper apiKey={mapsKey}> */}
                         <MapComponent apiKey={mapsKey} />
-                    </Wrapper>
+                    {/* </Wrapper> */}
                 </div>
             </div>
         </div>
