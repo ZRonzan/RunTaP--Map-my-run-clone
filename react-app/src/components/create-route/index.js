@@ -11,6 +11,7 @@ const CreateRoutePage = () => {
 
     const [isLoaded, setIsLoaded] = useState(false);
     const [mapsKey, setMapsKey] = useState("");
+    const [pathArr, setPathArr] = useState([])
 
     useEffect(() => {
         const getMaps = async () => {
@@ -25,12 +26,13 @@ const CreateRoutePage = () => {
     return isLoaded && (
         <div className='create-route-global-container'>
             <div className='create-route-sidebar'>
-                LEFT
+                <div>PATH</div>
+                <div></div>
             </div>
             <div className='create-route-main-body-container'>
                 <div className='create-route-map-window'>
                     {/* <Wrapper apiKey={mapsKey}> */}
-                        <MapComponent apiKey={mapsKey} />
+                        <MapComponent apiKey={mapsKey} pathArr={pathArr}  />
                     {/* </Wrapper> */}
                 </div>
             </div>
